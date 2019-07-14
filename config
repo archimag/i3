@@ -38,14 +38,27 @@ floating_modifier $mod
 # hide_edge_borders both
 # for_window [class="urxvt"] border pixel 1
 
+# Multimedia
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+
+# bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+# bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+
+bindsym $mod+l exec i3lock -d -c 000000
+
+bindsym Print exec gnome-screenshot -a
+
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+# bindsym $mod+Return exec i3-sensible-terminal
 bindsym F2 exec urxvt
 bindsym F3 exec dmenu_run
+bindsym F4 exec "XDG_CURRENT_DESKTOP=ubuntu:GNOME gnome-control-center"
+bindsym F6 exec "XDG_CURRENT_DESKTOP=ubuntu:GNOME nautilus"
 
-bindsym XF86Launch5 exec nautilus
-bindsym XF86Launch6 exec emacs
-bindsym XF86Launch7 exec google-chrome-stable
+# bindsym XF86Launch6 exec emacs
+# bindsym XF86Launch7 exec google-chrome-stable
 
 
 # kill focused window
@@ -60,13 +73,13 @@ bindsym $mod+c kill
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
-bindsym $mod+F5 exec gnome-control-center
+# bindsym $mod+F5 exec gnome-control-center
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+b focus left
+bindsym $mod+n focus down
+bindsym $mod+p focus up
+bindsym $mod+f focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -75,10 +88,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+b move left
+bindsym $mod+Shift+n move down
+bindsym $mod+Shift+p move up
+bindsym $mod+Shift+f move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -93,7 +106,7 @@ bindsym $mod+h split h
 bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+bindsym $mod+Return fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
@@ -138,11 +151,12 @@ set $ws10 "10"
 # set $ws10 "10 "
 
 
+set $screen2 "DVI-I-1-1"
 
-workspace $ws7 output "DVI-I-0"
-workspace $ws8 output "DVI-I-0"
-workspace $ws9 output "DVI-I-0"
-workspace $ws10 output "DVI-I-0"
+workspace $ws7 output $screen2
+workspace $ws8 output $screen2
+workspace $ws9 output $screen2
+workspace $ws10 output $screen2
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -234,7 +248,12 @@ bar {
 bindsym $mod+q focus output left
 bindsym $mod+w focus output right
 
-exec_always xmodmap ~/.xmodmap
+exec "setxkbmap -layout us,ru"
+exec "setxkbmap -option"
+exec "setxkbmap -option 'grp:ctrl_shift_toggle'"
+exec "setxkbmap -option 'grp_led:scroll'"
+exec "setxkbmap -option 'ctrl:nocaps'"
 
-exec_always xrandr --output HDMI-0 --gamma 1.27:1.22:1.00
-exec_always xrandr --output DVI-I-0 --gamma 0.86:0.95:1.00
+
+exec --no-startup-id np-applet
+exec --no-startup-id xautolock -time 10 -locker 'i3lock -d -c 000000'
