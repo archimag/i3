@@ -48,7 +48,7 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute s
 
 bindsym $mod+l exec i3lock -d -c 000000
 
-bindsym Print exec gnome-screenshot -a
+bindsym --release Print exec "gnome-screenshot -a"
 
 # start a terminal
 # bindsym $mod+Return exec i3-sensible-terminal
